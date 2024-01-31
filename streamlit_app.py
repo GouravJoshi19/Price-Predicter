@@ -12,5 +12,5 @@ width=st.text_input("width")
 depth=st.text_input("depth")
 result=''
 if st.button('Predict'):
-    result=model.predict([[carat,cut,length,width,depth]])[0]
+    result=model.predict([[carat,cut,length,width,depth]])
 st.success(result)
