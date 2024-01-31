@@ -1,8 +1,9 @@
 import pickle
 import streamlit as st
 import pandas as pd
+import numpy as np
 st.title("Diamond Price Predicter")
-model=pickle.load(open("E:\deployment\diamond.pkl",'rb'))
+model=pickle.load(open("./diamond.pkl",'rb'))
 data = pd.read_csv("./diamonds.csv")
 carat=st.text_input("Carat")
 cut=st.text_input("cut")
