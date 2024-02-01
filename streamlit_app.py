@@ -24,21 +24,21 @@ model=pickle.load(open("./diamond.pkl",'rb'))
 data = pd.read_csv("./diamonds.csv")
 st.sidebar.title("Input Features")
 carat = st.sidebar.selectbox("Carat",options=data['carat'].sort_values().unique(),index=None)
-cut = st.sidebar.selectbox("Cut",options=data['cut'].unique(),index=None)
+#cut = st.sidebar.selectbox("Cut",options=data['cut'].unique(),index=None)
 color =st.sidebar.selectbox("Color",options=data['color'].unique(),index=None)
 clarity = st.sidebar.selectbox("Clarity",options=data['clarity'].unique(),index=None)
 Length = st.sidebar.slider("Length(in mm)",float(data['x'].min()),float(data['x'].max()),float(data['x'].mean()))
 Width = st.sidebar.slider("Width(in mm)",float(data['y'].min()),float(data['y'].max()),float(data['y'].mean()))
 Depth = st.sidebar.slider("Depth(in mm)",float(data['z'].min()),float(data['z'].max()),float(data['z'].mean()))
 result=''
-input_features=[carat,cut,color,clarity,Length,Width,Depth]
+input_features=[carat,color,clarity,Length,Width,Depth]
 st.header(":orange[Values  of the selected Features:]")
 st.dataframe(input_features)
 if st.button('Predict'):
        if any(Value is None for Value in input_features):
            st.warning("Please Select All The Features")
        else:
-            result=model.predict([[carat,cut,color,clarity,Length,Width,Depth]])
+            result=model.predict([[carat,color,clarity,Length,Width,Depth]])
             if (result<0):
                  st.warning(f'${result[0]:.2f} OOPS!.. That is Something Unusual  \n\n please try again')
             else:
