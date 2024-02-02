@@ -55,7 +55,3 @@ An live Model built with python and streamlit
 https://diamond-price-predicter.streamlit.app/
 
 
-## 🔗 Links
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](gourav-joshi-5002a4284)
-
-
