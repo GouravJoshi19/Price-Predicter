@@ -52,6 +52,5 @@ If you have a suggestion that would make this better, please fork the repo and c
 ## Demo
 An live Model built with python and streamlit
 
-https://diamond-price-predicter.streamlit.app/
-
+https://diamond-price-predicter-yehkkgbsuknpjdi5yewp8c.streamlit.app/
 
