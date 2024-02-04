@@ -33,9 +33,9 @@ cut = st.sidebar.selectbox("Cut",tuple(cut_label.keys()),index=None)
 color =st.sidebar.selectbox("Color",tuple(color_label.keys()),index=None)
 clarity = st.sidebar.selectbox("Clarity",tuple(clarity_label.keys()),index=None)
 Depth_ratio = st.sidebar.slider("Depth Ratio",float(data['depth'].min()),float(data['depth'].max()),float(data['depth'].mean()))
-Length = st.sidebar.slider("Length(in mm)",float(data['x'].min()),float(data['x'].max()),float(data['x'].mean()))
-Width = st.sidebar.slider("Width(in mm)",float(data['y'].min()),float(data['y'].max()),float(data['y'].mean()))
-Depth = st.sidebar.slider("Depth(in mm)",float(data['z'].min()),float(data['z'].max()),float(data['z'].mean()))
+Length = st.sidebar.slider("Length(in mm)",float(3.73),float(10.74),float(data['x'].mean()))
+Width = st.sidebar.slider("Width(in mm)",float(3.68),float(10.54),float(data['y'].mean()))
+Depth = st.sidebar.slider("Depth(in mm)",float(1.07),float(6.98),float(data['z'].mean()))
 features=[carat,cut,color,clarity,Depth_ratio,Length,Width,Depth]
 Data={
      'carat':carat,
