@@ -76,5 +76,11 @@ if st.button('Predict'):
             else:
                 st.success(f'the price of the diamond is:${result[0]:.2f}')
 st.markdown("""----""")              
-st.markdown("""Made by :heart: Gourav Joshi""")
+st.markdown("""💎 Made by  Gourav Joshi💎 """)
+hide_streamlit_style = """
+            <style>
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
      
