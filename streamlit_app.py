@@ -1,5 +1,5 @@
 import pickle
-import streamlit_app as st
+import streamlit as st
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 #Loading the Data set and pickle model
 model=pickle.load(open("./diamond.pkl",'rb'))
-data = pd.read_csv("./diamonds.csv")
+data = pd.read_csv("./Diamonds_cleaned.csv")
 
 
 
@@ -20,7 +20,7 @@ st.set_page_config(
 
 
 st.title(":orange[Diamond Price Predicter]")
-st.subheader("This is a machine learning model That predicts the price of a Diamond.")
+st.subheader("Predict Diamond Prices with Precision: Explore our Machine Learning Web App's Dataset Overview and Forecasting Capabilities.")
 st.header(":orange[Description about the Dataset]")
 st.write("## Features ")
 st.markdown("""1.**Carat** -> Weight of the diamond, a significant factor in determining its value. \n\n
@@ -35,35 +35,48 @@ st.markdown("""1.**Carat** -> Weight of the diamond, a significant factor in det
 8.**Depth** -> Depth of Diamond in mm.\n\n
 """)
 
+#Corelation Heatmap
+heat_data=data.corr()
+st.write("## Heatmap")
+st.write("Click on the Show Button to see the correlation between the various features of the dataset")
+if st.button('Show'):
+     heat_data=data.corr()
+     sns.heatmap(heat_data)
+     st.pyplot()
+
 #Histogram
 st.write("## Carat distribution within the Data")
-sns.histplot(Data=data,x=data['carat'],bins=20,color='Green',kde=True)
+sns.histplot(data=data,x=data['carat'],bins=20,color='Green',kde=True)
 plt.title('Carat Distribution')
 st.pyplot()
 
 #Relation of Carat with the Target Feature
 st.write("## Relation between Carat and Price")
-sns.scatterplot(Data=data,x=data['carat'],y=data['price'],color='Yellow')
+sns.scatterplot(data=data,x=data['carat'],y=data['price'],color='Yellow')
 plt.title('Carat-Price')
 st.pyplot()
 
 #Relation of various Parameters with Target Fetaure
-parameter=st.selectbox("Parameter",options=['Length','Width','Depth'])
+parameter=st.selectbox("Parameter",options=['Length','Width','Depth'],index=None)
 def name(string):
      if(string=='Length'):
-          sns.scatterplot(Data=data,x=data['x'],y=data['price'],hue=data['y'])
+          sns.scatterplot(data=data,x=data['x'],y=data['price'])
           plt.title('Length-Price')
+          plt.xticks(np.arange(0,6))
+          #plt.xlim(0,6)
           st.pyplot()
-     elif(string=='width'):
-          sns.scatterplot(Data=data,x=data['y'],y=data['price'],hue=data['z'])
+     elif(string=='Width'):
+          sns.scatterplot(data=data,x=data['y'],y=data['price'],hue=data['z'])
           plt.title('Width-Price')
           st.pyplot()
      elif(string=='Depth'):
-          sns.scatterplot(Data=data,x=data['z'],y=data['price'],hue=data['x'])
+          sns.scatterplot(data=data,x=data['z'],y=data['price'],hue=data['x'])
           plt.title('Depth-Price')
           st.pyplot()
 
 name(parameter)
+
+#Input Features
 
 st.sidebar.title("Input Features")
 cut_label={'Fair':0, 'Good':1, 'Very Good':2, 'Premium':3, 'Ideal':4}
@@ -94,6 +107,8 @@ st.header(":orange[Values  of the selected Features:]")
 st.write(input_feature)
 value=''
 
+
+#Encoding the Categorical Values
 def get_keys(val,my_dict):
      for key,value in my_dict.items():
           if val==value:
@@ -103,10 +118,19 @@ def get_value(val,my_dict):
      for key,value in my_dict.items():
           if val==key:
                return value
+          
+
 new_cut=get_value(cut,cut_label)
 new_color=get_value(color,color_label)
 new_clarity=get_value(clarity,clarity_label)
-final_data=[carat,new_cut,new_color,new_clarity,Depth_ratio,Length,Width,Depth]                 
+final_data=[carat,new_cut,new_color,new_clarity,Depth_ratio,Length,Width,Depth]     
+
+
+#Prediction
+st.markdown('''---''')
+st.write("## Predicter")
+st.write("To check the price of a Diamond using this interactive Model.Please use the features provided in the Sidebar and click on Predict")
+
 if st.button('Predict'):
        if any(Value is None for Value in features):
            st.warning("Please Select All The Features")
@@ -116,6 +140,15 @@ if st.button('Predict'):
                  st.warning(f'${result[0]:.2f} OOPS!.. This is Something Unusual  \n\n please try again')
             else:
                 st.success(f'the price of the diamond is:${result[0]:.2f}')
+
+st.markdown('''---''')
+#Conclusion
+st.write("## Conclusion")
+st.markdown('''This web app provides an overview of the diamonds dataset and explores the various aspect that affects the price of diamond.''')
+st.write('Based on the Analysis it appears that Diamonds with High Carat value and Higher Dimensions have high Prices.')
+st.write('This web app also offers the functionality to forecast the price of diamonds.')
+
+#Footer
 st.markdown("""----""")              
 st.markdown("""💎 Made by  Gourav Joshi💎 """)
 hide_streamlit_style = """
