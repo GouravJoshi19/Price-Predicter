@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 #Loading the Data set and pickle model
 model=pickle.load(open("./diamond.pkl",'rb'))
 data = pd.read_csv("./Diamonds_cleaned.csv")
-data.drop('Unnamed:0',inplace=True,axis=0)
+
 
 
 st.set_page_config(
